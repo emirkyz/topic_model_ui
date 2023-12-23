@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>645</width>
-    <height>292</height>
+    <width>730</width>
+    <height>443</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>20</y>
      <width>141</width>
      <height>41</height>
@@ -34,10 +34,10 @@
   <widget class="QPlainTextEdit" name="plainTextEdit">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>60</y>
-     <width>511</width>
-     <height>211</height>
+     <width>711</width>
+     <height>371</height>
     </rect>
    </property>
    <property name="font">
@@ -58,14 +58,63 @@
   <widget class="QPushButton" name="start_buton">
    <property name="geometry">
     <rect>
-     <x>560</x>
-     <y>60</y>
+     <x>640</x>
+     <y>30</y>
      <width>80</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
     <string>Start</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="dosya_buton">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>30</y>
+     <width>80</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Dosya Seç</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="topic_spin">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>30</y>
+     <width>101</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="value">
+    <number>10</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>30</y>
+     <width>81</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Konu Sayısı</string>
    </property>
   </widget>
  </widget>

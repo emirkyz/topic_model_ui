@@ -60,15 +60,19 @@
 # app.exec_()
 
 import sys
+import time
+
 import pandas as pd
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QTableView, qApp
 from PyQt5.QtCore import QAbstractTableModel, Qt
-import time
-df = pd.read_csv("w_df.csv")
+from PyQt5.QtWidgets import QApplication, qApp, QFileDialog
 
-STATUS = ["Veriler yükleniyor...", "Veriler yüklendi.", "NMF başlatılıyor...", "NMF başlatıldı.", "NMF tamamlandı.",
-            "Sonuçlar kaydediliyor...", "Sonuçlar kaydedildi.", "Sonuçlar yükleniyor...", "Sonuçlar yüklendi."]
+from nmf import NMF_func
+
+FILE = ""
+df = pd.read_csv("w_df.csv")
+X, W, H, RESULT = "", "", "", ""
+
 
 class pandasModel(QAbstractTableModel):
     def __init__(self, data):
@@ -92,54 +96,86 @@ class pandasModel(QAbstractTableModel):
             return self._data.columns[col]
         return None
 
+def load_x():
+    df = X
+
+    df.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
+    model = pandasModel(df)
+    view.setModel(model)
+    win.label.setText(f"x matrisi boyutu: {df.shape}")
 def load_h():
-    df = pd.read_csv("h_df.csv")
+    df = H
+
     df.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
     model = pandasModel(df)
     view.setModel(model)
     win.label.setText(f"h matrisi boyutu: {df.shape}")
 
+
 def load_w():
-    df = pd.read_csv("w_df.csv")
+    df = W
+
     df.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
     model = pandasModel(df)
     view.setModel(model)
     win.label.setText(f"w matrisi boyutu: {df.shape}")
 
+
 def load_result():
-    df = pd.read_csv("result.csv")
-    df.set_index('Unnamed: 0', inplace=True)
+    global RESULT
+    df = RESULT
+
+    # df.set_index('Unnamed: 0', inplace=True)
     model = pandasModel(df)
     view.setModel(model)
     win.label.setText(f"Sonuç;")
+
+
 def open_other_ui():
     win.label.setText("Boş")
     # view.setModel(model)
     win.h_buton.clicked.connect(load_h)
     win.w_buton.clicked.connect(load_w)
+    win.x_buton.clicked.connect(load_x)
     win.result_buton.clicked.connect(load_result)
     win.show()
 
 
+def open_file():
+    global FILE
+
+    file = QFileDialog.getOpenFileName(win2, 'Open file')
+
+    only_filename = file[0].split("/")[-1]
+
+    FILE = only_filename
+    win2.plainTextEdit.setPlainText(win2.plainTextEdit.toPlainText() + "\n" + "Dosya seçildi.")
+    win2.plainTextEdit.moveCursor(win2.plainTextEdit.textCursor().End)
+
+
 def start_nmf():
+    global X, W, H, FILE, RESULT
     qApp.processEvents()
     time.sleep(1)
-    for i in range(len(STATUS)):
-        qApp.processEvents()
-        time.sleep(1)
-        win2.plainTextEdit.setPlainText(win2.plainTextEdit.toPlainText() + "\n" + STATUS[i])
-        win2.plainTextEdit.moveCursor(win2.plainTextEdit.textCursor().End)
+    num_of_topics = win2.topic_spin.value()
+    df = pd.read_csv(str(FILE))
+    X, W, H, RESULT = NMF_func(win2, df, qApp, num_of_topics)
+
     qApp.processEvents()
     win2.plainTextEdit.setPlainText(win2.plainTextEdit.toPlainText() + "\n" + "\n" + "Bitti.")
     win2.plainTextEdit.moveCursor(win2.plainTextEdit.textCursor().End)
+
+
 def nmf_ekrani():
-    print("nmf ekrani")
     win2.show()
     win2.plainTextEdit.setPlainText("Hazır." + "\n")
     win2.start_buton.clicked.connect(start_nmf)
+    win2.dosya_buton.clicked.connect(open_file)
+
 
 def tahmin_ekrani():
     print("tahmin ekrani")
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

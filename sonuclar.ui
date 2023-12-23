@@ -108,6 +108,13 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="x_buton">
+      <property name="text">
+       <string>X_df</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
