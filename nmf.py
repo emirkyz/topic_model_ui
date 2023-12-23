@@ -1,0 +1,150 @@
+import time
+
+import numpy as np
+import pandas as pd
+from sklearn.decomposition import NMF
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+
+def NMF_func(win, df, qApp, num_topics):
+    qApp.processEvents()
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + "Document loading (1/6)\n")
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + f"topik sayısı: {num_topics}")
+    documents = df
+
+    # print(documents.head())
+    # print(documents.shape)
+
+    qApp.processEvents()
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + "Vectorizing the documents (2/6)\n")
+
+    vect = TfidfVectorizer(min_df=50, stop_words='english')
+
+    X = vect.fit_transform(documents.headline_text)
+    df_features = vect.get_feature_names_out()
+    df_features = pd.DataFrame(df_features)
+    # df_features.to_csv('df_features.csv')
+
+    # list = [5790, 1468, 2224, 2752, 215]
+    # for name, age in vect.vocabulary_.items():
+    #     if age in list:
+    #         print(name, age)
+    # print(X[0, :])
+
+    genel_toplam_eleman_sayisi = X.shape[0] * X.shape[1]
+    qApp.processEvents()
+    win.plainTextEdit.setPlainText(
+        win.plainTextEdit.toPlainText() + "\n" + f"Matrisde bulunan toplam eleman sayısı: {genel_toplam_eleman_sayisi}")
+    win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+    # print("Saving the small portion of vectorized documents\n")
+    # print("Matrisden rasgele 1000 eleman seçiliyor\n")
+    smaller_x = X[np.random.choice(X.shape[0], 1000, replace=False)]
+    #
+    x_df = np.array(smaller_x.todense())
+    # print(f"Matrisin boyutu: {x_df.shape}")
+    # print(f"Matrisde bulunan toplam eleman sayısı: {x_df.size}")
+    # zero_count = np.count_nonzero(x_df == 0)
+    # print(f"Matrisde bulunan toplam 0 sayısı: {np.count_nonzero(x_df == 0)}")
+    # print(f"Matrisin bosluk oranı: %{(zero_count / x_df.size) * 100}")
+    # print("-------------------------------")
+    x_df = pd.DataFrame(x_df)
+    # x_df.to_csv('x_df.csv')
+    # Create an NMF instance: model
+    # the 10 components will be the topics
+
+    # seminer_3
+    qApp.processEvents()
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + "Fitting the model (3/6)\n")
+
+    model = NMF(n_components=num_topics, init='nndsvd')
+
+    model.fit(X)
+
+    nmf_features = model.transform(X)
+
+    qApp.processEvents()
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + "Saving the components (4/6)\n")
+    # Create a DataFrame: components_df
+
+    components_df = pd.DataFrame(model.components_, columns=vect.get_feature_names_out())
+    # components_df.to_csv('components_df.csv')
+
+    W = model.fit_transform(X)
+    w_df = pd.DataFrame(W)
+    # w_df.to_csv('w_df.csv')
+
+    H = model.components_
+    h_df = pd.DataFrame(H)
+    # h_df.to_csv('h_df.csv')
+
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + f"Shape of X : {X.shape}")
+
+    win.plainTextEdit.setPlainText(
+        win.plainTextEdit.toPlainText() + "\n" + f"Shape of W: {W.shape} and shape of H: {H.shape}")
+    win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+
+    # print(components_df.head())
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + "Getting the top words for each topic (5/6)\n")
+    win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+    qApp.processEvents()
+    for topic in range(components_df.shape[0]):
+        tmp = components_df.iloc[topic]
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + f'For topic {topic + 1} the words with the highest value are:')
+        win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + f'{tmp.nlargest(10)}' + "\n")
+        win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+        qApp.processEvents()
+        time.sleep(2)
+
+    win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+    feat_names = vect.get_feature_names_out()
+
+    qApp.processEvents()
+
+    word_dict = {}
+    for i in range(num_topics):
+        # for each topic, obtain the largest values, and add the words they map to into the dictionary.
+        words_ids = model.components_[i].argsort()[:-num_topics - 1:-1]
+        words = [feat_names[key] for key in words_ids]
+        word_dict['Topic # ' + '{:02d}'.format(i + 1)] = words
+    result = pd.DataFrame(word_dict)
+
+
+    my_document = documents.headline_text[55]
+    win.plainTextEdit.setPlainText(
+        win.plainTextEdit.toPlainText() + "\n" + "Getting the 55th document and its prediction (6,6)\n")
+    qApp.processEvents()
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + f"{my_document}")
+    win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + f"{pd.DataFrame(nmf_features).loc[55]}")
+    win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+
+    # print(my_document)
+    # print(pd.DataFrame(nmf_features).loc[55])
+    nmf_features_df = pd.DataFrame(nmf_features)
+    # nmf_features_df.to_csv('nmf_features_df.csv')
+
+    return x_df, w_df, h_df, result
+
+# --------------------------------------------
+
+
+# print("Making new prediction")
+# my_news = """Police investigating the shooting near the intersection of 3rd Avenue and Pine Street"""
+#
+# # my_news = """15-year-old girl stabbed to death in grocery store during fight with 4 younger girls
+# #         Authorities said they gathered lots of evidence from videos on social media"""
+# num_topics = 10
+# # Transform the TF-IDF
+# X = vect.transform([my_news])
+# x_vec_transformed = pd.DataFrame(X)
+# x_vec_transformed.to_csv('x_vec_transformed.csv')
+# # Transform the TF-IDF: nmf_features
+# nmf_features = model.transform(X)
+#
+# x_nmf_transformed = pd.DataFrame(nmf_features)
+# x_nmf_transformed.to_csv('x_nmf_transformed.csv')
+#
+# sonuclar = pd.DataFrame(nmf_features)
+# print(pd.DataFrame(nmf_features).idxmax(axis=1))
+# print("Done")
+# # print(pd.DataFrame(nmf_features).idxmax(axis=1).value_counts())

@@ -169,7 +169,9 @@ def start_nmf():
 
 
 def nmf_ekrani():
+    win2.setWindowTitle("NMF Ekranı")
     win2.show()
+
     win2.plainTextEdit.setPlainText("Hazır." + "\n")
     win2.start_buton.clicked.connect(start_nmf)
     win2.dosya_buton.clicked.connect(open_file)
