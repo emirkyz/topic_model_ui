@@ -71,7 +71,7 @@ from nmf import NMF_func
 
 FILE = ""
 df = pd.read_csv("w_df.csv")
-X, W, H, RESULT = "", "", "", ""
+X, W, H, RESULT,nmf_done = "", "", "", "",""
 
 
 class pandasModel(QAbstractTableModel):
@@ -131,13 +131,15 @@ def load_result():
     win.label.setText(f"Sonuç;")
 
 
-def open_other_ui():
-    win.label.setText("Boş")
+def open_result_ui():
     # view.setModel(model)
-    win.h_buton.clicked.connect(load_h)
-    win.w_buton.clicked.connect(load_w)
-    win.x_buton.clicked.connect(load_x)
-    win.result_buton.clicked.connect(load_result)
+    if nmf_done:
+        win.h_buton.clicked.connect(load_h)
+        win.w_buton.clicked.connect(load_w)
+        win.x_buton.clicked.connect(load_x)
+        win.result_buton.clicked.connect(load_result)
+    else:
+        win.label.setText("NMF işlemi henüz bitmemiş.")
     win.show()
 
 
@@ -154,13 +156,13 @@ def open_file():
 
 
 def start_nmf():
-    global X, W, H, FILE, RESULT
+    global X, W, H, FILE, RESULT,nmf_done
     qApp.processEvents()
     time.sleep(1)
     num_of_topics = win2.topic_spin.value()
     df = pd.read_csv(str(FILE))
     X, W, H, RESULT = NMF_func(win2, df, qApp, num_of_topics)
-
+    nmf_done = True
     qApp.processEvents()
     win2.plainTextEdit.setPlainText(win2.plainTextEdit.toPlainText() + "\n" + "\n" + "Bitti.")
     win2.plainTextEdit.moveCursor(win2.plainTextEdit.textCursor().End)
@@ -182,7 +184,7 @@ if __name__ == '__main__':
     # model = pandasModel(df)
     win1 = uic.loadUi("main.ui")
     win1.setWindowTitle("Ana Pencere")
-    win1.sonuclar_buton.clicked.connect(open_other_ui)
+    win1.sonuclar_buton.clicked.connect(open_result_ui)
     win1.nmf_buton.clicked.connect(nmf_ekrani)
     win2 = uic.loadUi("NMF.ui")
     win1.tahmin_buton.clicked.connect(tahmin_ekrani)

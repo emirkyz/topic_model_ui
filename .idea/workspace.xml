@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba288270-4408-4ef8-aa79-aad6949d9103" name="Changes" comment="-Some tests.">
-      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+    <list default="true" id="ba288270-4408-4ef8-aa79-aad6949d9103" name="Changes" comment="-Added more functionality.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NMF.ui" beforeDir="false" afterPath="$PROJECT_DIR$/NMF.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qtmain.py" beforeDir="false" afterPath="$PROJECT_DIR$/qtmain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sonuclar.ui" beforeDir="false" afterPath="$PROJECT_DIR$/sonuclar.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +115,7 @@
       <workItem from="1703268490750" duration="1512000" />
       <workItem from="1703270020251" duration="596000" />
       <workItem from="1703270644824" duration="172000" />
-      <workItem from="1703314132144" duration="5065000" />
+      <workItem from="1703314132144" duration="5732000" />
     </task>
     <task id="LOCAL-00001" summary="-Some tests.">
       <option name="closed" value="true" />
@@ -157,7 +157,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703270752271</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="-Added more functionality.">
+      <option name="closed" value="true" />
+      <created>1703319810392</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1703319810392</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,9 +184,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="-Some tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="-Some tests." />
+    <MESSAGE value="-Added more functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="-Added more functionality." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/topic_model_ui$qtmain.coverage" NAME="qtmain Coverage Results" MODIFIED="1703319569553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/topic_model_ui$qtmain.coverage" NAME="qtmain Coverage Results" MODIFIED="1703320239067" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
