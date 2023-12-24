@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba288270-4408-4ef8-aa79-aad6949d9103" name="Changes" comment="-Added more functionality.">
+      <change afterPath="$PROJECT_DIR$/backup/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/NMF.ui" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/main.ui" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/qtmain.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backup/sonuclar.ui" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components_df.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nmf_features_df.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tahmin.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NMF.ui" beforeDir="false" afterPath="$PROJECT_DIR$/NMF.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nmf.py" beforeDir="false" afterPath="$PROJECT_DIR$/nmf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/qtmain.py" beforeDir="false" afterPath="$PROJECT_DIR$/qtmain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sonuclar.ui" beforeDir="false" afterPath="$PROJECT_DIR$/sonuclar.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,24 +56,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "Python.qtmain.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "X:/topic_model_ui",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;Python.qtmain.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;ignore_missing_gitignore&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;X:/topic_model_ui&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="X:\topic_model_ui" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="qtmain" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="topic_model_ui" />
@@ -116,7 +128,8 @@
       <workItem from="1703268490750" duration="1512000" />
       <workItem from="1703270020251" duration="596000" />
       <workItem from="1703270644824" duration="172000" />
-      <workItem from="1703314132144" duration="6117000" />
+      <workItem from="1703314132144" duration="7530000" />
+      <workItem from="1703419438596" duration="4745000" />
     </task>
     <task id="LOCAL-00001" summary="-Some tests.">
       <option name="closed" value="true" />
@@ -174,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703320627306</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="-Added more functionality.">
+      <option name="closed" value="true" />
+      <created>1703325143392</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1703325143392</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,6 +218,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="-Added more functionality." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/topic_model_ui$qtmain.coverage" NAME="qtmain Coverage Results" MODIFIED="1703320443832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/topic_model_ui$qtmain.coverage" NAME="qtmain Coverage Results" MODIFIED="1703424143323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

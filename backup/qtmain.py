@@ -60,19 +60,15 @@
 # app.exec_()
 
 import sys
-import time
-
 import pandas as pd
 from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QTableView, qApp
 from PyQt5.QtCore import QAbstractTableModel, Qt
-from PyQt5.QtWidgets import QApplication, qApp, QFileDialog
-
-from nmf import NMF_model
-
-FILE = ""
+import time
 df = pd.read_csv("w_df.csv")
-X, W, H, RESULT, nmf_done = "", "", "", "", ""
 
+STATUS = ["Veriler yükleniyor...", "Veriler yüklendi.", "NMF başlatılıyor...", "NMF başlatıldı.", "NMF tamamlandı.",
+            "Sonuçlar kaydediliyor...", "Sonuçlar kaydedildi.", "Sonuçlar yükleniyor...", "Sonuçlar yüklendi."]
 
 class pandasModel(QAbstractTableModel):
     def __init__(self, data):
@@ -96,124 +92,72 @@ class pandasModel(QAbstractTableModel):
             return self._data.columns[col]
         return None
 
-
-def load_x():
-    df_X = X
-
-    df_X.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
-    model = pandasModel(df_X)
-    view.setModel(model)
-    sonuclar_win.label.setText(f"x matrisi boyutu: {df_X.shape}")
-
-
 def load_h():
-    df_h = H
-
-    model = pandasModel(df_h)
+    df = pd.read_csv("h_df.csv")
+    df.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
+    model = pandasModel(df)
     view.setModel(model)
-    sonuclar_win.label.setText(f"h matrisi boyutu: {df_h.shape}")
-
+    win.label.setText(f"h matrisi boyutu: {df.shape}")
 
 def load_w():
-    df_W = W
-
-
-    model = pandasModel(df_W)
+    df = pd.read_csv("w_df.csv")
+    df.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
+    model = pandasModel(df)
     view.setModel(model)
-    sonuclar_win.label.setText(f"w matrisi boyutu: {df_W.shape}")
-
+    win.label.setText(f"w matrisi boyutu: {df.shape}")
 
 def load_result():
-    global RESULT
-    df_result = RESULT
-
-    # df.set_index('Unnamed: 0', inplace=True)
-    model = pandasModel(df_result)
-
+    df = pd.read_csv("result.csv")
+    df.set_index('Unnamed: 0', inplace=True)
+    model = pandasModel(df)
     view.setModel(model)
-
-    sonuclar_win.label.setText(f"Sonuç;")
-
-
-def open_result_ui():
-    sonuclar_win.setWindowTitle("Sonuçlar")
+    win.label.setText(f"Sonuç;")
+def open_other_ui():
+    win.label.setText("Boş")
     # view.setModel(model)
-    if nmf_done:
-        sonuclar_win.h_buton.clicked.connect(load_h)
-        sonuclar_win.w_buton.clicked.connect(load_w)
-        sonuclar_win.x_buton.clicked.connect(load_x)
-        sonuclar_win.result_buton.clicked.connect(load_result)
-    else:
-        sonuclar_win.label.setText("NMF işlemi henüz bitmemiş.")
-    sonuclar_win.show()
-
-
-def open_file():
-    global FILE
-
-    file = QFileDialog.getOpenFileName(nmf_win, 'Open file')
-
-    only_filename = file[0].split("/")[-1]
-
-    FILE = only_filename
-    nmf_win.plainTextEdit.setPlainText("\n" + "Dosya seçildi.")
-    nmf_win.plainTextEdit.moveCursor(nmf_win.plainTextEdit.textCursor().End)
+    win.h_buton.clicked.connect(load_h)
+    win.w_buton.clicked.connect(load_w)
+    win.result_buton.clicked.connect(load_result)
+    win.show()
 
 
 def start_nmf():
-    global X, W, H, FILE, RESULT, nmf_done
     qApp.processEvents()
     time.sleep(1)
-    num_of_topics = nmf_win.topic_spin.value()
-    df = pd.read_csv(str(FILE))
-    temp = NMF_model(nmf_win, df, qApp, num_of_topics)
-
-    X, W, H, RESULT = temp.NMF_func()
-    nmf_done = True
+    for i in range(len(STATUS)):
+        qApp.processEvents()
+        time.sleep(1)
+        win2.plainTextEdit.setPlainText(win2.plainTextEdit.toPlainText() + "\n" + STATUS[i])
+        win2.plainTextEdit.moveCursor(win2.plainTextEdit.textCursor().End)
     qApp.processEvents()
-    nmf_win.plainTextEdit.setPlainText(nmf_win.plainTextEdit.toPlainText() + "\n" + "\n" + "Bitti.")
-    nmf_win.plainTextEdit.moveCursor(nmf_win.plainTextEdit.textCursor().End)
-
-
+    win2.plainTextEdit.setPlainText(win2.plainTextEdit.toPlainText() + "\n" + "\n" + "Bitti.")
+    win2.plainTextEdit.moveCursor(win2.plainTextEdit.textCursor().End)
 def nmf_ekrani():
-    nmf_win.setWindowTitle("NMF Ekranı")
-    nmf_win.show()
-
-    nmf_win.plainTextEdit.setPlainText("Hazır." + "\n")
-    nmf_win.dosya_buton.clicked.connect(open_file)
-    if FILE == "":
-        nmf_win.plainTextEdit.setPlainText(nmf_win.plainTextEdit.toPlainText() + "\n" + "Dosya seçilmedi.")
-        nmf_win.plainTextEdit.moveCursor(nmf_win.plainTextEdit.textCursor().End)
-
-    nmf_win.start_buton.clicked.connect(start_nmf)
-
+    print("nmf ekrani")
+    win2.show()
+    win2.plainTextEdit.setPlainText("Hazır." + "\n")
+    win2.start_buton.clicked.connect(start_nmf)
 
 def tahmin_ekrani():
-    tahmin_win.setWindowTitle("Tahmin Ekranı")
-    tahmin_win.show()
-    tahmin_win.cikti_plain.setPlainText("Hazır." + "\n")
-    tahmin_win.cikti_plain.moveCursor(tahmin_win.cikti_plain.textCursor().End)
-
+    print("tahmin ekrani")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     # model = pandasModel(df)
-    main_win = uic.loadUi("main.ui")
-    nmf_win = uic.loadUi("NMF.ui")
-    tahmin_win = uic.loadUi("tahmin.ui")
-    sonuclar_win = uic.loadUi("sonuclar.ui")
+    win1 = uic.loadUi("main.ui")
+    win1.setWindowTitle("Ana Pencere")
+    win1.sonuclar_buton.clicked.connect(open_other_ui)
+    win1.nmf_buton.clicked.connect(nmf_ekrani)
+    win2 = uic.loadUi("NMF.ui")
+    win1.tahmin_buton.clicked.connect(tahmin_ekrani)
+    win = uic.loadUi("sonuclar.ui")
+    win.setWindowTitle("Sonuçlar")
 
-    main_win.setWindowTitle("Ana Pencere")
-
-    main_win.sonuclar_buton.clicked.connect(open_result_ui)
-    main_win.nmf_buton.clicked.connect(nmf_ekrani)
-    main_win.tahmin_buton.clicked.connect(tahmin_ekrani)
-
-    view = sonuclar_win.tableView
+    view = win.tableView
 
     # # view.setModel(model)
     # win.h_buton.clicked.connect(load_h)
     # win.w_buton.clicked.connect(load_w)
 
-    main_win.show()
+    win1.show()
     app.exec()
