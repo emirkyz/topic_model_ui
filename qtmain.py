@@ -70,7 +70,7 @@ from PyQt5.QtWidgets import QApplication, qApp, QFileDialog
 from nmf import NMF_model
 
 FILE = ""
-df = pd.read_csv("w_df.csv")
+NMF_OBJ = NMF_model()
 X, W, H, RESULT, nmf_done = "", "", "", "", ""
 
 
@@ -116,7 +116,6 @@ def load_h():
 
 def load_w():
     df_W = W
-
 
     model = pandasModel(df_W)
     view.setModel(model)
@@ -166,9 +165,8 @@ def start_nmf():
     time.sleep(1)
     num_of_topics = nmf_win.topic_spin.value()
     df = pd.read_csv(str(FILE))
-    temp = NMF_model(nmf_win, df, qApp, num_of_topics)
+    X, W, H, RESULT = NMF_OBJ.NMF_func(nmf_win, df, qApp, num_of_topics)
 
-    X, W, H, RESULT = temp.NMF_func()
     nmf_done = True
     qApp.processEvents()
     nmf_win.plainTextEdit.setPlainText(nmf_win.plainTextEdit.toPlainText() + "\n" + "\n" + "Bitti.")
@@ -188,11 +186,22 @@ def nmf_ekrani():
     nmf_win.start_buton.clicked.connect(start_nmf)
 
 
+def tahmin_et_func():
+    cümle = tahmin_win.tahmin_line.text()
+
+    temp2 = NMF_OBJ.tahmin_et(cümle)
+    print(temp2)
+    tahmin_win.cikti_plain.setPlainText(tahmin_win.cikti_plain.toPlainText() + "\n" + f"{temp2}")
+    tahmin_win.cikti_plain.moveCursor(tahmin_win.cikti_plain.textCursor().End)
+    tahmin_win.tahmin_line.setText("")
 def tahmin_ekrani():
     tahmin_win.setWindowTitle("Tahmin Ekranı")
     tahmin_win.show()
     tahmin_win.cikti_plain.setPlainText("Hazır." + "\n")
     tahmin_win.cikti_plain.moveCursor(tahmin_win.cikti_plain.textCursor().End)
+
+    print("wtf")
+    tahmin_win.guess_buton.clicked.connect(tahmin_et_func)
 
 
 if __name__ == '__main__':

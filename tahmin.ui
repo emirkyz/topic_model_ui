@@ -614,7 +614,7 @@ QTimeEdit, QToolBox, QToolBox::tab, QToolBox::tab:selected {
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="tahmin_buton">
+  <widget class="QPushButton" name="guess_buton">
    <property name="geometry">
     <rect>
      <x>509</x>

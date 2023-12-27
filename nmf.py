@@ -7,32 +7,30 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 class NMF_model():
-    def __init__(self, win, df, qApp, num_topics):
+    def __init__(self):
         super().__init__()
-        self.win = win
-        self.df = df
-        self.qApp = qApp
-        self.num_topics = num_topics
-        self.model = ""
 
-    def NMF_func(self):
-        self.qApp.processEvents()
-        self.win.plainTextEdit.setPlainText(self.win.plainTextEdit.toPlainText() + "\n" + "Document loading (1/6)\n")
-        self.win.plainTextEdit.setPlainText(
-            self.win.plainTextEdit.toPlainText() + "\n" + f"topik sayısı: {self.num_topics}")
-        documents = self.df
+        self.model = NMF(n_components=10, init='nndsvd')
+        self.vectorizer = TfidfVectorizer(min_df=50, stop_words='english')
+
+    def NMF_func(self, win, df, qApp, num_topics):
+        qApp.processEvents()
+        win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + "Document loading (1/6)\n")
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + f"topik sayısı: {num_topics}")
+        documents = df
 
         # print(documents.head())
         # print(documents.shape)
 
-        self.qApp.processEvents()
-        self.win.plainTextEdit.setPlainText(
-            self.win.plainTextEdit.toPlainText() + "\n" + "Vectorizing the documents (2/6)\n")
+        qApp.processEvents()
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + "Vectorizing the documents (2/6)\n")
 
-        vect = TfidfVectorizer(min_df=50, stop_words='english')
+        # self.vectorizer = TfidfVectorizer(min_df=50, stop_words='english')
 
-        X = vect.fit_transform(documents.headline_text)
-        df_features = vect.get_feature_names_out()
+        X = self.vectorizer.fit_transform(documents.headline_text)
+        df_features = self.vectorizer.get_feature_names_out()
         df_features = pd.DataFrame(df_features)
         # df_features.to_csv('df_features.csv')
 
@@ -43,10 +41,10 @@ class NMF_model():
         # print(X[0, :])
 
         genel_toplam_eleman_sayisi = X.shape[0] * X.shape[1]
-        self.qApp.processEvents()
-        self.win.plainTextEdit.setPlainText(
-            self.win.plainTextEdit.toPlainText() + "\n" + f"Matrisde bulunan toplam eleman sayısı: {genel_toplam_eleman_sayisi}")
-        self.win.plainTextEdit.moveCursor(self.win.plainTextEdit.textCursor().End)
+        qApp.processEvents()
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + f"Matrisde bulunan toplam eleman sayısı: {genel_toplam_eleman_sayisi}")
+        win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
         # print("Saving the small portion of vectorized documents\n")
         # print("Matrisden rasgele 1000 eleman seçiliyor\n")
         smaller_x = X[np.random.choice(X.shape[0], 1000, replace=False)]
@@ -64,21 +62,21 @@ class NMF_model():
         # the 10 components will be the topics
 
         # seminer_3
-        self.qApp.processEvents()
-        self.win.plainTextEdit.setPlainText(self.win.plainTextEdit.toPlainText() + "\n" + "Fitting the model (3/6)\n")
+        qApp.processEvents()
+        win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + "Fitting the model (3/6)\n")
 
-        self.model = NMF(n_components=self.num_topics, init='nndsvd')
+        self.model = NMF(n_components=num_topics, init='nndsvd')
 
         self.model.fit(X)
 
         nmf_features = self.model.transform(X)
 
-        self.qApp.processEvents()
-        self.win.plainTextEdit.setPlainText(
-            self.win.plainTextEdit.toPlainText() + "\n" + "Saving the components (4/6)\n")
+        qApp.processEvents()
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + "Saving the components (4/6)\n")
         # Create a DataFrame: components_df
 
-        components_df = pd.DataFrame(self.model.components_, columns=vect.get_feature_names_out())
+        components_df = pd.DataFrame(self.model.components_, columns=self.vectorizer.get_feature_names_out())
         # components_df.to_csv('components_df.csv')
 
         W = self.model.fit_transform(X)
@@ -90,34 +88,34 @@ class NMF_model():
 
         # h_df.to_csv('h_df.csv')
 
-        self.win.plainTextEdit.setPlainText(self.win.plainTextEdit.toPlainText() + "\n" + f"Shape of X : {X.shape}")
+        win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + f"Shape of X : {X.shape}")
 
-        self.win.plainTextEdit.setPlainText(
-            self.win.plainTextEdit.toPlainText() + "\n" + f"Shape of W: {W.shape} and shape of H: {H.shape}")
-        self.win.plainTextEdit.moveCursor(self.win.plainTextEdit.textCursor().End)
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + f"Shape of W: {W.shape} and shape of H: {H.shape}")
+        win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
 
         # print(components_df.head())
-        self.win.plainTextEdit.setPlainText(
-            self.win.plainTextEdit.toPlainText() + "\n" + "Getting the top words for each topic (5/6)\n")
-        self.win.plainTextEdit.moveCursor(self.win.plainTextEdit.textCursor().End)
-        self.qApp.processEvents()
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + "Getting the top words for each topic (5/6)\n")
+        win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+        qApp.processEvents()
         for topic in range(components_df.shape[0]):
             tmp = components_df.iloc[topic]
-            self.win.plainTextEdit.setPlainText(
-                self.win.plainTextEdit.toPlainText() + "\n" + f'For topic {topic + 1} the words with the highest value are:')
-            self.win.plainTextEdit.setPlainText(
-                self.win.plainTextEdit.toPlainText() + "\n" + f'{tmp.nlargest(10)}' + "\n")
-            self.win.plainTextEdit.moveCursor(self.win.plainTextEdit.textCursor().End)
-            self.qApp.processEvents()
+            win.plainTextEdit.setPlainText(
+                win.plainTextEdit.toPlainText() + "\n" + f'For topic {topic + 1} the words with the highest value are:')
+            win.plainTextEdit.setPlainText(
+                win.plainTextEdit.toPlainText() + "\n" + f'{tmp.nlargest(10)}' + "\n")
+            win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+            qApp.processEvents()
             time.sleep(2)
 
-        self.win.plainTextEdit.moveCursor(self.win.plainTextEdit.textCursor().End)
-        feat_names = vect.get_feature_names_out()
+        win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
+        feat_names = self.vectorizer.get_feature_names_out()
 
-        self.qApp.processEvents()
+        qApp.processEvents()
 
         word_dict = {}
-        for i in range(self.num_topics):
+        for i in range(num_topics):
             # for each topic, obtain the largest values, and add the words they map to into the dictionary.
             words_ids = self.model.components_[i].argsort()[:-10 - 1:-1]
             words = [feat_names[key] for key in words_ids]
@@ -125,13 +123,13 @@ class NMF_model():
         result = pd.DataFrame(word_dict)
 
         my_document = documents.headline_text[55]
-        self.win.plainTextEdit.setPlainText(
-            self.win.plainTextEdit.toPlainText() + "\n" + "Getting the 55th document and its prediction (6,6)\n")
-        self.qApp.processEvents()
-        self.win.plainTextEdit.setPlainText(self.win.plainTextEdit.toPlainText() + "\n" + f"{my_document}")
-        self.win.plainTextEdit.setPlainText(
-            self.win.plainTextEdit.toPlainText() + "\n" + f"{pd.DataFrame(nmf_features).loc[55]}")
-        self.win.plainTextEdit.moveCursor(self.win.plainTextEdit.textCursor().End)
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + "Getting the 55th document and its prediction (6,6)\n")
+        qApp.processEvents()
+        win.plainTextEdit.setPlainText(win.plainTextEdit.toPlainText() + "\n" + f"{my_document}")
+        win.plainTextEdit.setPlainText(
+            win.plainTextEdit.toPlainText() + "\n" + f"{pd.DataFrame(nmf_features).loc[55]}")
+        win.plainTextEdit.moveCursor(win.plainTextEdit.textCursor().End)
 
         # print(my_document)
         # print(pd.DataFrame(nmf_features).loc[55])
@@ -142,6 +140,17 @@ class NMF_model():
         w_df['topic_id'] = w_df.idxmax(axis=1)
         h_df.columns += 1
         return x_df, w_df, h_df, result
+
+    def tahmin_et(self, metin):
+        my_news = f"""{metin}"""
+        print(my_news)
+        X_tahmin = self.vectorizer.transform([my_news])
+        nmf_features = self.model.transform(X_tahmin)
+        x_nmf_transformed = pd.DataFrame(nmf_features)
+        sonuclar = pd.DataFrame(nmf_features)
+
+        print(sonuclar)
+        return sonuclar
 
 # --------------------------------------------
 
