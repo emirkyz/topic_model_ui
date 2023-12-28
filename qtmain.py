@@ -155,7 +155,7 @@ def open_file():
     only_filename = file[0].split("/")[-1]
 
     FILE = only_filename
-    nmf_win.plainTextEdit.setPlainText("\n" + "Dosya seçildi.")
+    nmf_win.plainTextEdit.setPlainText("\n" + "Dosya seçildi." + "\n" + f"Seçilen dosya : {FILE}")
     nmf_win.plainTextEdit.moveCursor(nmf_win.plainTextEdit.textCursor().End)
 
 
@@ -194,6 +194,8 @@ def tahmin_et_func():
     tahmin_win.cikti_plain.setPlainText(tahmin_win.cikti_plain.toPlainText() + "\n" + f"{temp2}")
     tahmin_win.cikti_plain.moveCursor(tahmin_win.cikti_plain.textCursor().End)
     tahmin_win.tahmin_line.setText("")
+
+
 def tahmin_ekrani():
     tahmin_win.setWindowTitle("Tahmin Ekranı")
     tahmin_win.show()

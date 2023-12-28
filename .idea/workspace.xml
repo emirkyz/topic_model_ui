@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba288270-4408-4ef8-aa79-aad6949d9103" name="Changes" comment="-Added more functionality.">
+    <list default="true" id="ba288270-4408-4ef8-aa79-aad6949d9103" name="Changes" comment="-Tahmin etme özelliği eklendi">
       <change afterPath="$PROJECT_DIR$/components_df.csv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/nmf_features_df.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nmf.py" beforeDir="false" afterPath="$PROJECT_DIR$/nmf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/qtmain.py" beforeDir="false" afterPath="$PROJECT_DIR$/qtmain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tahmin.ui" beforeDir="false" afterPath="$PROJECT_DIR$/tahmin.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sonuclar.ui" beforeDir="false" afterPath="$PROJECT_DIR$/sonuclar.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,24 +50,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "Python.qtmain.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "X:/topic_model_ui",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;Python.qtmain.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;ignore_missing_gitignore&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;X:/topic_model_ui&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="X:\topic_model_ui" />
@@ -127,7 +127,9 @@
       <workItem from="1703514239052" duration="1913000" />
       <workItem from="1703597338685" duration="269000" />
       <workItem from="1703652674239" duration="710000" />
-      <workItem from="1703653401274" duration="1858000" />
+      <workItem from="1703653401274" duration="2631000" />
+      <workItem from="1703690929602" duration="58000" />
+      <workItem from="1703741830919" duration="647000" />
     </task>
     <task id="LOCAL-00001" summary="-Some tests.">
       <option name="closed" value="true" />
@@ -201,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703424408064</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="-Tahmin etme özelliği eklendi">
+      <option name="closed" value="true" />
+      <created>1703655431870</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1703655431870</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,20 +231,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="-Some tests." />
     <MESSAGE value="-Added more functionality." />
-    <option name="LAST_COMMIT_MESSAGE" value="-Added more functionality." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/nmf.py</url>
-          <line>143</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="-Tahmin etme özelliği eklendi" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Tahmin etme özelliği eklendi" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/topic_model_ui$qtmain.coverage" NAME="qtmain Coverage Results" MODIFIED="1703655268567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/topic_model_ui$qtmain.coverage" NAME="qtmain Coverage Results" MODIFIED="1703742337852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
